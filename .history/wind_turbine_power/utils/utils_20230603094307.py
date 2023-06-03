@@ -1,7 +1,6 @@
 import os
 import numpy as np
-import joblib
-
+from sklearn.externals import joblib
 
 def load_data(path):
     if not os.path.exists(path):

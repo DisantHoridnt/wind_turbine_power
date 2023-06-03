@@ -1,4 +1,3 @@
-# model/data.py
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 

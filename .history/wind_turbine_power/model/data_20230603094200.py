@@ -18,12 +18,12 @@ class DataProcessor:
         self.fit(X)
         return self.transform(X)
 
-    def generate_turbine_data(self, num_samples, cut_in, rated_speed, rated_power, cut_out, shape, scale, random_state=None):
+    def generate_turbine_data(self, num_samples, cut_in, rated_speed, rated_power, cut_out, random_state=None):
         if random_state is not None:
             np.random.seed(random_state)
             
-        # Generate random wind speeds from a Weibull distribution
-        wind_speeds = np.random.weibull(shape, num_samples) * scale
+        # Generate random wind speeds between 0 and cut_out + 5
+        wind_speeds = np.random.uniform(0, cut_out + 5, num_samples)
         
         # Initialize power outputs
         power_outputs = np.zeros(num_samples)
