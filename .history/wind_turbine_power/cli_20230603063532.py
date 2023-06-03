@@ -2,9 +2,6 @@ import argparse
 import logging
 from .model import model, data
 from .utils import utils
-from os import path
-
-logging.basicConfig(level=logging.INFO)
 
 def main():
     parser = argparse.ArgumentParser(description='Wind Turbine Power Prediction')
@@ -41,31 +38,20 @@ def main():
 
     elif args.command == 'train_model':
         try:
-            assert path.exists(args.data_path), "Training data file not found"
             wind_speeds, power_outputs = utils.load_data(args.data_path)
             train_speeds, test_speeds, train_power, test_power = model.split_data(wind_speeds, power_outputs)
-            data_processor = model.DataProcessor()
-            scaled_train_speeds = data_processor.fit_transform(train_speeds.reshape(-1, 1))
-            scaled_test_speeds = data_processor.transform(test_speeds.reshape(-1, 1))
+            scaled_train_speeds, scaled_test_speeds, _ = model.scale_data(train_speeds.reshape(-1, 1), test_speeds.reshape(-1, 1))
             trained_model = model.train_model(scaled_train_speeds, train_power)
             utils.save_model(trained_model, args.model_path)
-            utils.save_model(data_processor, 'data_processor.joblib')
             logging.info(f'Successfully trained model and saved to {args.model_path}')
-        except AssertionError as error:
-            logging.error(error)
         except Exception as e:
             logging.error(f'Failed to train model: {e}')
 
     elif args.command == 'predict':
         try:
-            assert path.exists(args.model_path), "Model file not found"
-            trained_model = utils.load_model(args.model_path)
-            data_processor = utils.load_model('data_processor.joblib')
-            scaled_speed = data_processor.transform([[args.wind_speed]])
-            prediction = trained_model.predict(scaled_speed)
+            model = utils.load_model(args.model_path)
+            prediction = model.predict([[args.wind_speed]])
             print(f'Predicted power output for wind speed {args.wind_speed}: {prediction[0]}')
-        except AssertionError as error:
-            logging.error(error)
         except Exception as e:
             logging.error(f'Failed to predict: {e}')
 

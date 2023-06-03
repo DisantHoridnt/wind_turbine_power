@@ -60,14 +60,4 @@ def main():
         try:
             assert path.exists(args.model_path), "Model file not found"
             trained_model = utils.load_model(args.model_path)
-            data_processor = utils.load_model('data_processor.joblib')
-            scaled_speed = data_processor.transform([[args.wind_speed]])
-            prediction = trained_model.predict(scaled_speed)
-            print(f'Predicted power output for wind speed {args.wind_speed}: {prediction[0]}')
-        except AssertionError as error:
-            logging.error(error)
-        except Exception as e:
-            logging.error(f'Failed to predict: {e}')
-
-if __name__ == '__main__':
-    main()
+            data_processor = utils.load_model

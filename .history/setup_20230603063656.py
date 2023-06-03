@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="wind_turbine_power",
     version="0.1",
-    author="Disant Upadhyay",
+    author="Your Name",
     author_email="dupadhyay@mun.ca",
     description="A package to predict wind turbine power output based on wind speed",
     long_description=open('README.md').read(),

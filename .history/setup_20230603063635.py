@@ -3,12 +3,12 @@ from setuptools import setup, find_packages
 setup(
     name="wind_turbine_power",
     version="0.1",
-    author="Disant Upadhyay",
-    author_email="dupadhyay@mun.ca",
+    author="Your Name",
+    author_email="your.email@example.com",
     description="A package to predict wind turbine power output based on wind speed",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/princedisant/wind_turbine_power",
+    url="https://github.com/prine/wind_turbine_power",
     packages=find_packages(),
     install_requires=[
         "numpy",

@@ -18,6 +18,8 @@ class DataProcessor:
         self.fit(X)
         return self.transform(X)
 
+
+
     def generate_turbine_data(num_samples, cut_in, rated_speed, rated_power, cut_out, random_state=None):
         if random_state is not None:
             np.random.seed(random_state)
